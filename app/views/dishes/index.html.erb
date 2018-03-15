@@ -94,7 +94,7 @@
 
       <% @dishes.each do |dish| %>
       <tr>
-        <td><%= dish.name %></td>
+        <td><a href="/dishes/<%=dish.id%>"><%= dish.name %></a></td>
         <td>
           <% if dish.cuisine.present? %>
             <a href="/cuisines/<%= dish.cuisine.id %>">
