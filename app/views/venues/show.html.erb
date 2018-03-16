@@ -1,4 +1,4 @@
-  <div class="container mt-4">
+<div class="container mt-4">
 
 
     <div class="row mt-2 justify-content-md-center">
@@ -13,7 +13,7 @@
               <%= @venue.neighborhood.name%>,
               <% end %>
               <% if @venue.address.present? %>
-              <% @venue.address %>
+              <%= @venue.address %>
               <% end %>
             </small>
         </h4>
@@ -22,8 +22,6 @@
       <div class="card-body">
         <div id="location_map" style="height: 360px;"></div>
       </div>
-
-
 <div class="row">
   <div class="col-md-12 mb-2">
     <dl class="dl-horizontal">
@@ -58,12 +56,14 @@
         </li>
       <% end %>
 
-      <li class="list-group-item">
+            <li class="list-group-item">
         <form action="/create_bookmark" method="post">
       <!-- Hidden input for authenticity token to protect from forgery -->
       <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 
       <!-- Label and input for dish_id -->
+      <input name="user_id" type="hidden" value="<%= current_user.id %>">
+      <input name = "venue_id" type = "hidden" value = "<%=@venue.id%>">
       <div class="form-group">
         <%= select_tag(:dish_id, options_from_collection_for_select(Dish.all, :id, :name), :class => "form-control") %>
       </div>
@@ -75,81 +75,96 @@
             right now
           </small>
         </li>
+              <li class="list-group-item list-group-item-success">
+        Popular dishes here
+      </li>
+
+<% @venue.specialties.each do |dish| %>
+        <li class="list-group-item">
+          <a href="/dishes/<%= dish.id %>">
+            <%= dish.name %>
+          </a>
+        </li>
+      <% end %>
       <!-- Label and input for venue_id -->
-      <input type="hidden" name="venue_id" value="<%= @venue.id %>">
+    <!--  <input type="hidden" name="venue_id" value="<%= @venue.id %>">-->
 
       <!-- Label and input for user_id -->
-      <input type="hidden" name="user_id" value="<%= current_user.id %>">
-      <button class="btn btn-block btn-success">
-        Create Bookmark
-      </button>
-    </form>
-      </li>
+    <!--  <input type="hidden" name="user_id" value="<%= current_user.id %>">-->
+    <!--  <button class="btn btn-block btn-success">-->
+    <!--    Create Bookmark-->
+    <!--  </button>-->
+    <!--</form>-->
     </ul>
+          <div class="card-footer text-center">
+        <a href="/venues" class="btn btn-block btn-secondary">
+          <i class="fa fa-chevron-left"></i>
+        </a>
+      </div>
   </div>
 </div>
 
 <!-- A Venue has many fans -->
 
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Fans
-      </li>
+<!--<div class="row">-->
+<!--  <div class="col-md-12">-->
+<!--    <ul class="list-group">-->
+<!--      <li class="list-group-item list-group-item-info">-->
+<!--        Fans-->
+<!--      </li>-->
 
-      <% @venue.fans.each do |user| %>
-        <li class="list-group-item">
-          <a href="/users/<%= user.id %>">
-            <%= user.username %>
-          </a>
-          <div class="btn-group btn-group-xs float-right">
-            <a href="/users/<%= user.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/users/<%= user.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_user/<%= user.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+<!--      <% @venue.fans.each do |user| %>-->
+<!--        <li class="list-group-item">-->
+<!--          <a href="/users/<%= user.id %>">-->
+<!--            <%= user.username %>-->
+<!--          </a>-->
+<!--          <div class="btn-group btn-group-xs float-right">-->
+<!--            <a href="/users/<%= user.id %>" class="btn btn-primary">-->
+<!--              <i class="fa fa-search-plus"></i>-->
+<!--            </a>-->
+<!--            <a href="/users/<%= user.id %>/edit" class="btn btn-warning">-->
+<!--              <i class="fa fa-edit"></i>-->
+<!--            </a>-->
+<!--            <a href="/delete_user/<%= user.id %>" class="btn btn-danger" rel="nofollow">-->
+<!--              <i class="fa fa-trash-o"></i>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      <% end %>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
 
 <!-- A Venue has many specialties -->
 
-<div class="row">
-  <div class="col-md-12">
-    <ul class="list-group">
-      <li class="list-group-item list-group-item-info">
-        Specialties
-      </li>
+<!--<div class="row">-->
+<!--  <div class="col-md-12">-->
+<!--    <ul class="list-group">-->
+<!--      <li class="list-group-item list-group-item-info">-->
+<!--        Specialties-->
+<!--      </li>-->
 
-      <% @venue.specialties.each do |dish| %>
-        <li class="list-group-item">
-          <a href="/dishes/<%= dish.id %>">
-            <%= dish.name %>
-          </a>
-          <div class="btn-group btn-group-xs float-right">
-            <a href="/dishes/<%= dish.id %>" class="btn btn-primary">
-              <i class="fa fa-search-plus"></i>
-            </a>
-            <a href="/dishes/<%= dish.id %>/edit" class="btn btn-warning">
-              <i class="fa fa-edit"></i>
-            </a>
-            <a href="/delete_dish/<%= dish.id %>" class="btn btn-danger" rel="nofollow">
-              <i class="fa fa-trash-o"></i>
-            </a>
-          </div>
-        </li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+<!--      <% @venue.specialties.each do |dish| %>-->
+<!--        <li class="list-group-item">-->
+<!--          <a href="/dishes/<%= dish.id %>">-->
+<!--            <%= dish.name %>-->
+<!--          </a>-->
+<!--          <div class="btn-group btn-group-xs float-right">-->
+<!--            <a href="/dishes/<%= dish.id %>" class="btn btn-primary">-->
+<!--              <i class="fa fa-search-plus"></i>-->
+<!--            </a>-->
+<!--            <a href="/dishes/<%= dish.id %>/edit" class="btn btn-warning">-->
+<!--              <i class="fa fa-edit"></i>-->
+<!--            </a>-->
+<!--            <a href="/delete_dish/<%= dish.id %>" class="btn btn-danger" rel="nofollow">-->
+<!--              <i class="fa fa-trash-o"></i>-->
+<!--            </a>-->
+<!--          </div>-->
+<!--        </li>-->
+<!--      <% end %>-->
+<!--    </ul>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 <script src="//maps.google.com/maps/api/js?v=3.24&key=AIzaSyCOTPWiuvyyo6sKoIBzKA4-1ol-vTOIOlM"></script>
