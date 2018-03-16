@@ -1,10 +1,8 @@
 <div class="page-header">
-  <h1>
-    Dishes
-    <a href="/dishes/new" class="btn btn-lg btn-success">New Dish</a>
-    
-  </h1>
-</div><div class="row mb-1">
+  
+<div class="container mt-4">
+
+</div><div class="row mt-2 mb-1">
   <div class="col-md-3">
     <%= search_form_for @q, :class => "collapse", :id => "dishes_filters" do |f| %>
       <p class="lead">Narrow results:</p>
@@ -60,7 +58,7 @@
     <table class="table table-striped table-hover">
       <tr>
         <th> The very best ... </th>
-        <th>...is at </th>
+        <th>is at... </th>
         <th>Cuisine</th>
       </tr>
 
@@ -70,21 +68,23 @@
         <td>
           <form action="/create_bookmark" method="post">
             <!-- Label and input for movie_id -->
-            <div class="form-group">
+            
+            
               <input type="hidden" name="dish_id" value="<%= dish.id %>">
               <input type="hidden" name="user_id" value="<%= current_user.id %>">
               <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control") %>
-            </div>
-            <button class="btn btn-block btn-outline-secondary">
-              Create bookmark
-            </button>
+              <button class="btn btn-primary btn-sm">
+                  <i class="fa fa-heart"></i>
+                </button>
+            
+            
           </form>
         </td>
         <td>
           <% if dish.cuisine.present? %>
-            <a href="/cuisines/<%= dish.cuisine.id %>">
+          <span class="badge badge-primary">
               <%= dish.cuisine.name %>
-            </a>
+          </span>
           <% end %>
         </td>
       </tr>
@@ -94,6 +94,7 @@
   </div>
   
   <div class="col-md-3">
-    <a href="/venues/new" class="btn btn-lg btn-success">New Venue</a>
+    <a href="/venues/new" class="btn btn-block btn-success">Add a new venue</a>
+  </div>
   </div>
   </div>
