@@ -30,6 +30,7 @@
           });
       </script>
 
+      <div>Cuisine</div>
       <% Cuisine.all.each do |cuisine| %>
         <p><label>
           <%= check_box_tag('q[cuisine_id_eq_any][]', cuisine.id, (true if @q.cuisine_id_eq_any.try(:include?, cuisine.id))) %>
@@ -53,7 +54,8 @@
       <tr>
         <th> The very best ... </th>
         <th>is at... </th>
-        <th>Cuisine</th>
+        <th></th>
+        <th></th>
       </tr>
 
       <% @dishes.each do |dish| %>
@@ -66,8 +68,8 @@
             
               <input type="hidden" name="dish_id" value="<%= dish.id %>">
               <input type="hidden" name="user_id" value="<%= current_user.id %>">
-              <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control", :include_blank => "Choose a venue...") %>
-              <button class="btn btn-primary btn-sm">
+              <%= select_tag("venue_id", options_from_collection_for_select(Venue.all, :id, :name), :class => "form-control", :include_blank => "Choose a venue...") %></td>
+              <td><button class="btn btn-primary btn-sm">
                   <i class="fa fa-heart"></i>
                 </button>
             
