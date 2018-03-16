@@ -59,18 +59,8 @@
       </tr>
 
       <% @dishes.each do |dish| %>
-        <%counter = 0%>
-        <%dish_bookmarks = []%>
-        <%current_user.bookmarks.each do |bookmark|%>
-          <%if bookmark.dish_id == dish.id%>
-            <%counter += 1%>
-            <% dish_bookmarks.append(bookmark) %>
-          <%end%>
-        <%end%>
       <tr>
         <td><a href="/dishes/<%=dish.id%>"><%= dish.name %></a></td>
-        
-        <% if counter == 0 %>
         <td>
           <form action="/create_bookmark" method="post">
             <!-- Label and input for movie_id -->
@@ -84,16 +74,8 @@
                 </button>
             
             
-          </form></td>
-          <% else %>
-          <%user_bookmarks = Bookmark.where(:user_id => current_user.id)%>
-          <%dish_bookmarks1 = user_bookmarks.where(:dish_id => dish.id) %>
-            <td><%marks = dish_bookmarks1.order('created_at DESC').all%>
-            <a href = "/venues/<%=marks.first.venue_id%>"><%=marks.first.venue.name%></a>
-            </td>
-            <td></td>
-          <% end %>
-          
+          </form>
+        </td>
         <td>
           <% if dish.cuisine.present? %>
           <span class="badge badge-primary">
