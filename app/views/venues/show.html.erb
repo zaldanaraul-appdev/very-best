@@ -23,31 +23,6 @@
         <div id="location_map" style="height: 360px;"></div>
       </div>
 
-      <ul class="list-group">
-        <li class="list-group-item list-group-item-success">
-          Dishes you loved here
-        </li>
-
-          <li class="list-group-item">
-            <p>
-              <a href="/venues/632">
-                Burger
-              </a>
-
-              <small class="float-right text-muted">
-                about 11 hours ago
-
-                <a href="/bookmarks/928/edit">
-                  <i class="fa fa-fw fa-edit"></i>
-                </a>
-
-                <a href="/delete_bookmark/928">
-                  <i class="fa fa-fw fa-trash-o"></i>
-                </a>
-              </small>
-            </p>
-
-          </li>
 
 <div class="row">
   <div class="col-md-12 mb-2">
@@ -69,7 +44,7 @@
       <% @venue.bookmarks.each do |bookmark| %>
         <li class="list-group-item">
           <a href="/bookmarks/<%= bookmark.id %>">
-            <%= bookmark.notes %>
+            <%= bookmark.dish.name %>
           </a>
           <small class="float-right text-muted">
             <%= time_ago_in_words(bookmark.updated_at) %> ago
